@@ -9,31 +9,31 @@ const fish4 = document.getElementById('fish4');
 const fishConfigs = [
     {
         element: fish1,
-        baseTop: 12,
-        baseLeft: 8,
-        verticalSpeed: 0.18,
-        horizontalSpeed: 0.28
+        baseTop: 10,
+        baseLeft: 72,
+        verticalSpeed: 0.22,
+        horizontalSpeed: -0.32
     },
     {
         element: fish2,
-        baseTop: 20,
-        baseLeft: 28,
-        verticalSpeed: 0.16,
-        horizontalSpeed: 0.24
+        baseTop: 16,
+        baseLeft: 78,
+        verticalSpeed: 0.18,
+        horizontalSpeed: -0.26
     },
     {
         element: fish3,
-        baseTop: 28,
-        baseLeft: 48,
+        baseTop: 14,
+        baseLeft: 66,
         verticalSpeed: 0.2,
-        horizontalSpeed: 0.3
+        horizontalSpeed: -0.3
     },
     {
         element: fish4,
-        baseTop: 36,
-        baseLeft: 68,
-        verticalSpeed: 0.17,
-        horizontalSpeed: 0.26
+        baseTop: 22,
+        baseLeft: 82,
+        verticalSpeed: 0.24,
+        horizontalSpeed: -0.36
     }
 ];
 
@@ -81,7 +81,7 @@ window.addEventListener('scroll', function () {
         splash.style.top = 20 + value * -0.3 + 'px';
     }
 
-    // Move fishes diagonally from top-left to bottom-right
+    // Move fishes diagonally from top-right to bottom-left
     fishConfigs.forEach(({ element, baseTop, baseLeft, verticalSpeed, horizontalSpeed }) => {
         if (!element) {
             return;
