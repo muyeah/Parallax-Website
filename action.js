@@ -7,10 +7,34 @@ const fish3 = document.getElementById('fish3');
 const fish4 = document.getElementById('fish4');
 
 const fishConfigs = [
-    { element: fish1, baseBottom: 12, speed: 0.22 },
-    { element: fish2, baseBottom: 20, speed: 0.18 },
-    { element: fish3, baseBottom: 28, speed: 0.24 },
-    { element: fish4, baseBottom: 36, speed: 0.2 }
+    {
+        element: fish1,
+        baseTop: 12,
+        baseLeft: 8,
+        verticalSpeed: 0.18,
+        horizontalSpeed: 0.28
+    },
+    {
+        element: fish2,
+        baseTop: 20,
+        baseLeft: 28,
+        verticalSpeed: 0.16,
+        horizontalSpeed: 0.24
+    },
+    {
+        element: fish3,
+        baseTop: 28,
+        baseLeft: 48,
+        verticalSpeed: 0.2,
+        horizontalSpeed: 0.3
+    },
+    {
+        element: fish4,
+        baseTop: 36,
+        baseLeft: 68,
+        verticalSpeed: 0.17,
+        horizontalSpeed: 0.26
+    }
 ];
 
 if (screen.width < 400) {
@@ -21,7 +45,8 @@ if (screen.width < 400) {
 
     // Slow down the fish movement for mobile screens
     fishConfigs.forEach((config) => {
-        config.speed *= 0.6;
+        config.verticalSpeed *= 0.6;
+        config.horizontalSpeed *= 0.6;
     });
 }
 
@@ -56,13 +81,14 @@ window.addEventListener('scroll', function () {
         splash.style.top = 20 + value * -0.3 + 'px';
     }
 
-    //Move fishes vertically from bottom to top
-    fishConfigs.forEach(({ element, baseBottom, speed }) => {
+    // Move fishes diagonally from top-left to bottom-right
+    fishConfigs.forEach(({ element, baseTop, baseLeft, verticalSpeed, horizontalSpeed }) => {
         if (!element) {
             return;
         }
 
-        element.style.bottom = `calc(${baseBottom}% + ${value * speed}px)`;
+        element.style.top = `calc(${baseTop}% + ${value * verticalSpeed}px)`;
+        element.style.left = `calc(${baseLeft}% + ${value * horizontalSpeed}px)`;
     });
 })
 
