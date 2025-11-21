@@ -1,21 +1,53 @@
 // Select the class bubble
-time = document.getElementsByClassName('bubbles')[0];
+const time = document.getElementsByClassName('bubbles')[0];
 
-// padding values for desktop
-var fish2move = 100;
-var fish3move = 900;
-var fish4move = 1200;
+const fish1 = document.getElementById('fish1');
+const fish2 = document.getElementById('fish2');
+const fish3 = document.getElementById('fish3');
+const fish4 = document.getElementById('fish4');
+
+const fishConfigs = [
+    {
+        element: fish1,
+        baseTop: 10,
+        baseLeft: 72,
+        verticalSpeed: 0.22,
+        horizontalSpeed: -0.32
+    },
+    {
+        element: fish2,
+        baseTop: 16,
+        baseLeft: 78,
+        verticalSpeed: 0.18,
+        horizontalSpeed: -0.26
+    },
+    {
+        element: fish3,
+        baseTop: 14,
+        baseLeft: 66,
+        verticalSpeed: 0.2,
+        horizontalSpeed: -0.3
+    },
+    {
+        element: fish4,
+        baseTop: 22,
+        baseLeft: 82,
+        verticalSpeed: 0.24,
+        horizontalSpeed: -0.36
+    }
+];
 
 if (screen.width < 400) {
 
     //Change transformation duration and translatey for mobile view
-    time.style.setProperty('--transform-duration', '15s')
-    time.style.setProperty('--transform-y', '-700vh')
+    time.style.setProperty('--transform-duration', '15s');
+    time.style.setProperty('--transform-y', '-700vh');
 
-    // padding values for mobile
-    fish2move = 1680;
-    fish3move = 3000;
-    fish4move = 4300;
+    // Slow down the fish movement for mobile screens
+    fishConfigs.forEach((config) => {
+        config.verticalSpeed *= 0.6;
+        config.horizontalSpeed *= 0.6;
+    });
 }
 
 
@@ -49,11 +81,15 @@ window.addEventListener('scroll', function () {
         splash.style.top = 20 + value * -0.3 + 'px';
     }
 
-    //Move fishes horizontally
-    fish1.style.right = (value - 100) * 1 + 'px';
-    fish2.style.left = (value - fish2move) * 1 + 'px';
-    fish3.style.right = (value - fish3move) * 1 + 'px';
-    fish4.style.left = (value - fish4move) * 1 + 'px';
+    // Move fishes diagonally from top-right to bottom-left
+    fishConfigs.forEach(({ element, baseTop, baseLeft, verticalSpeed, horizontalSpeed }) => {
+        if (!element) {
+            return;
+        }
+
+        element.style.top = `calc(${baseTop}% + ${value * verticalSpeed}px)`;
+        element.style.left = `calc(${baseLeft}% + ${value * horizontalSpeed}px)`;
+    });
 })
 
 
